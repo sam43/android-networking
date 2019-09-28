@@ -11,36 +11,53 @@
         android:label="fragment_parent"
         tools:layout="@layout/fragment_parent" >
         <action
-            android:id="@+id/action_parentFragment_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/action_parentFragment_to_dashboard_navigation"
+            app:destination="@id/dashboard_navigation" />
     </fragment>
     <navigation
-        android:id="@+id/navigation_dashboard"
-        android:label="dashboard"
-        app:startDestination="@id/navigation_home">
-        <fragment
-            android:id="@+id/navigation_notifications"
-            android:name="com.sam43.android_networking.ui.notifications.NotificationsFragment"
-            android:label="dashboard"
-            tools:layout="@layout/fragment_notifications" />
-        <fragment
-            android:id="@+id/navigation_dashboard"
-            android:name="com.sam43.android_networking.ui.dashboard.DashboardFragment"
-            android:label="dashboard"
-            tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/dashboard_navigation"
+        app:startDestination="@+id/navigation_home">
+
         <fragment
             android:id="@+id/navigation_home"
             android:name="com.sam43.android_networking.ui.home.HomeFragment"
-            android:label="dashboard"
+            android:label="@string/title_home"
             tools:layout="@layout/fragment_home">
+
             <action
                 android:id="@+id/action_navigation_home_to_detailsFragment"
-                app:destination="@id/detailsFragment" />
+                app:destination="@id/detailsFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popUpTo="@+id/detailsFragment" />
+            <argument
+                android:name="movieID"
+                android:defaultValue="0"
+                app:argType="integer" />
+
         </fragment>
+
+        <fragment
+            android:id="@+id/navigation_dashboard"
+            android:name="com.sam43.android_networking.ui.dashboard.DashboardFragment"
+            android:label="@string/title_dashboard"
+            tools:layout="@layout/fragment_dashboard" />
+
+        <fragment
+            android:id="@+id/navigation_notifications"
+            android:name="com.sam43.android_networking.ui.notifications.NotificationsFragment"
+            android:label="@string/title_notifications"
+            tools:layout="@layout/fragment_notifications" />
         <fragment
             android:id="@+id/detailsFragment"
-            android:name="com.sam43.android_networking.ui.DetailsFragment"
-            android:label="dashboard"
-            tools:layout="@layout/fragment_details" />
+            android:name="com.sam43.android_networking.ui.home.details.DetailsFragment"
+            android:label="{movieTitle}"
+            tools:layout="@layout/fragment_details">
+
+            <argument
+                android:name="movieTitle"
+                android:defaultValue="Movie title"
+                app:argType="string" />
+        </fragment>
     </navigation>
 </navigation>

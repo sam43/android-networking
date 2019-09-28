@@ -1,24 +1,14 @@
 package com.sam43.android_networking.ui.home
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.sam43.android_networking.models.MovieItem
 import com.sam43.android_networking.services.ApiFactory
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import com.sam43.android_networking.utils.ViewModelFactory
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
-
-    private val parentJob = Job()
-
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Default
-
-    private val scope = CoroutineScope(coroutineContext)
-
+class HomeViewModel : ViewModelFactory() {
     private val repository : MovieListRepo = MovieListRepo(ApiFactory.tmdbApi)
-
-
     val popularMoviesLiveData = MutableLiveData<MutableList<MovieItem?>>()
 
     fun fetchMovies(){

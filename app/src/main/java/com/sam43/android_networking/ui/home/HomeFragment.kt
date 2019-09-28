@@ -1,15 +1,16 @@
 package com.sam43.android_networking.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sam43.android_networking.R
 import com.sam43.android_networking.models.MovieItem
@@ -21,6 +22,11 @@ class HomeFragment : Fragment() {
 
     private lateinit var tmdbViewModel: HomeViewModel
     private lateinit var root: View
+    private val movieListObserver = Observer<MutableList<MovieItem?>?> {
+        updateUI(it)
+        //TODO - Your Update UI Logic
+        tmdbViewModel.cancelAllRequests()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,21 +36,16 @@ class HomeFragment : Fragment() {
         tmdbViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
         initVM()
         return root
     }
 
     private fun initVM() {
-        tmdbViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        tmdbViewModel = ViewModelProviders.of(this@HomeFragment).get(HomeViewModel::class.java)
 
         tmdbViewModel.fetchMovies()
 
-        tmdbViewModel.popularMoviesLiveData.observe(viewLifecycleOwner, Observer {
-            Log.d("movieList: ","$it")
-            updateUI(it)
-            //TODO - Your Update UI Logic
-        })
+        tmdbViewModel.popularMoviesLiveData.observe(viewLifecycleOwner, movieListObserver)
     }
 
     private fun updateUI(list: MutableList<MovieItem?>?) {
@@ -56,16 +57,13 @@ class HomeFragment : Fragment() {
         list?.toList()?.let {
             RecyclerAdapterUtil.Builder(context!!, it, R.layout.item_movie_list)
                 .viewsList(viewList)
-                .bindView { itemView, item, position, innerViews ->
+                .bindView { _, item, _, innerViews ->
                     val movieTitle = innerViews[R.id.movie_title] as TextView
                     val movieDetails = innerViews[R.id.movie_details] as TextView
                     val movieImage = innerViews[R.id.movie_image] as ImageView
 
                     movieTitle.text = item?.respOriginalTitle
-                    movieDetails.text = item?.respOverview
-                    /*ivDelete.setOnClickListener {
-                            //TODO:: delete movie
-                        }*/
+                    movieDetails.text = item?.respOriginalTitle
                     activity?.loadCircularImage(
                         item?.respPosterPath,
                         movieImage,
@@ -73,6 +71,14 @@ class HomeFragment : Fragment() {
                         R.drawable.ic_placeholder
                     )
 
+                }
+                .addClickListener { item, _ ->
+                    val bundle = bundleOf(
+                        "movieID" to item?.respId,
+                        "movieTitle" to item?.respOriginalTitle
+                    )
+                    root.findNavController()
+                        .navigate(R.id.action_navigation_home_to_detailsFragment, bundle)
                 }
                 .into(root.rv_popular_movies)
         }

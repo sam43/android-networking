@@ -1,10 +1,10 @@
 package com.sam43.android_networking.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.sam43.android_networking.R
 
@@ -20,7 +20,7 @@ class ParentFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_parent, container, false)
-        findNavController().navigate(R.id.action_parentFragment_to_navigation_dashboard)
+        findNavController().navigate(R.id.action_parentFragment_to_dashboard_navigation)
         return parentView
     }
 

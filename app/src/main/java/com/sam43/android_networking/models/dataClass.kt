@@ -14,7 +14,6 @@ data class PopularMovies(
     val respTotalResults: Int?
 )
 
-
 data class MovieItem(
     @SerializedName("adult")
     val respAdult: Boolean?,
