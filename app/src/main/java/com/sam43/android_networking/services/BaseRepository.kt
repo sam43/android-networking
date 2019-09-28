@@ -4,7 +4,7 @@ import android.util.Log
 import retrofit2.Response
 import java.io.IOException
 
-open class BaseRepository{
+open class BaseRepository {
     suspend fun <T : Any> safeApiCall(call: suspend () -> Response<T>, errorMessage: String): T? {
 
         val result : Result<T> = safeApiResult(call,errorMessage)
@@ -17,10 +17,7 @@ open class BaseRepository{
                 Log.d("1.DataRepository", "$errorMessage & Exception - ${result.exception}")
             }
         }
-
-
         return data
-
     }
 
     private suspend fun <T: Any> safeApiResult(call: suspend ()-> Response<T>, errorMessage: String) : Result<T>{
@@ -29,6 +26,7 @@ open class BaseRepository{
 
         return Result.Error(IOException("Error Occurred during getting safe Api result, Custom ERROR - $errorMessage"))
     }
+
     sealed class Result<out T: Any> {
         data class Success<out T : Any>(val data: T) : Result<T>()
         data class Error(val exception: Exception) : Result<Nothing>()

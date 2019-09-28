@@ -8,12 +8,9 @@ class MovieListRepo (private val api : TmdbApi) : BaseRepository() {
 
     suspend fun getPopularMovies() : MutableList<MovieItem?>?{
         val movieResponse = safeApiCall(
-            call = {api.getPopularMoviesAsync().await()},
+            call = { api.getPopularMoviesAsync().await() },
             errorMessage = "Error Fetching Popular Movies"
         )
-
         return movieResponse?.respResults?.toMutableList()
-
     }
-
 }

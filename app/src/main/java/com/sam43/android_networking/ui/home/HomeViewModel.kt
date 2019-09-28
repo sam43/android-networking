@@ -1,6 +1,5 @@
 package com.sam43.android_networking.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sam43.android_networking.models.MovieItem
@@ -28,7 +27,6 @@ class HomeViewModel : ViewModel() {
             popularMoviesLiveData.postValue(popularMovies)
         }
     }
-
 
     fun cancelAllRequests() = coroutineContext.cancel()
 }
