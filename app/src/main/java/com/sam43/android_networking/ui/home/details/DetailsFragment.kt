@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.sam43.android_networking.R
 import com.sam43.android_networking.models.MovieDetails
-import com.sam43.android_networking.room.User
+import com.sam43.android_networking.room.Movie
 import com.sam43.android_networking.utils.insert
 import com.sam43.android_networking.utils.loadImage
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -64,7 +64,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setButtonClick(it: MovieDetails?) {
-        val movie = User(
+        val movie = Movie(
             id = it?.respId!!,
             name = it.respTitle,
             info = it.respTagline,

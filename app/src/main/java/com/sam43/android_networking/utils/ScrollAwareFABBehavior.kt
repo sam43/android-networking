@@ -46,10 +46,10 @@ class ScrollAwareFABBehavior(context: Context, attrs: AttributeSet) :
             dyUnconsumed
         )
         if (dyConsumed > 0 && !this.mIsAnimatingOut && child.visibility == View.VISIBLE) {
-            // User scrolled down and the FAB is currently visible -> hide the FAB
+            // Movie scrolled down and the FAB is currently visible -> hide the FAB
             animateOut(child)
         } else if (dyConsumed < 0 && child.visibility != View.VISIBLE) {
-            // User scrolled up and the FAB is currently not visible -> show the FAB
+            // Movie scrolled up and the FAB is currently not visible -> show the FAB
             animateIn(child)
         }
     }

@@ -8,7 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.sam43.android_networking.room.AppDataBase
-import com.sam43.android_networking.room.User
+import com.sam43.android_networking.room.Movie
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -43,26 +43,26 @@ fun Context.loadCircularImage(url: String?, holder: ImageView, placeHolder: Int,
 
 }
 
-fun Context.insert(user: User) {
+fun Context.insert(movie: Movie) {
     val db = AppDataBase.invoke(this)
     GlobalScope.launch {
-        db.userDao().insert(user)
+        db.userDao().insert(movie)
         Log.d("DB_insert", "inserted")
     }
 }
 
-fun Context.delete(user: User) {
+fun Context.delete(movie: Movie) {
     val db = AppDataBase.invoke(this)
     GlobalScope.launch {
-        db.userDao().delete(user)
+        db.userDao().delete(movie)
         Log.d("DB_delete", "deleted")
     }
 }
 
-fun Context.updateUser(user: User) {
+fun Context.updateUser(movie: Movie) {
     val db = AppDataBase.invoke(this)
     GlobalScope.launch {
-        db.userDao().updateUser(user)
+        db.userDao().updateUser(movie)
     }
 }
 
@@ -73,16 +73,16 @@ fun Context.filterUserbyName(userName: String) {
     }
 }
 
-fun Context.getAllUser(): List<User?> {
+fun Context.getAllUser(): List<Movie?> {
     val db = AppDataBase.invoke(this)
-    val userList: ArrayList<User?> = ArrayList()
-    //var data: List<User?> = listOf()
+    val movieList: ArrayList<Movie?> = ArrayList()
+    //var data: List<Movie?> = listOf()
     GlobalScope.launch {
         val data = db.userDao().getAll()
-        userList.addAll(data)
+        movieList.addAll(data)
         data.forEach {
             Log.d("DB_movie", "val: ${it.name} and id: ${it.id}")
         }
     }
-    return userList
+    return movieList
 }

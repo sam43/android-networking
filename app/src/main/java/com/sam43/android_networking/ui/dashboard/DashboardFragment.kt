@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sam43.android_networking.R
 import com.sam43.android_networking.room.AppDataBase
-import com.sam43.android_networking.room.User
+import com.sam43.android_networking.room.Movie
 import com.sam43.android_networking.utils.RecyclerAdapterUtil
 import com.sam43.android_networking.utils.loadCircularImage
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
@@ -51,7 +51,7 @@ class DashboardFragment : Fragment() {
         })
     }
 
-    private fun updateUI(list: List<User?>?) {
+    private fun updateUI(list: List<Movie?>?) {
         val viewList = listOf(
             R.id.movie_image,
             R.id.movie_title,

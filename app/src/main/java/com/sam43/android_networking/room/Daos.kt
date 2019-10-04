@@ -5,19 +5,19 @@ import androidx.room.*
 interface Daos {
     @Dao
     interface UserDao {
-        @Query("SELECT * FROM user_table")
-        fun getAll(): List<User>
+        @Query("SELECT * FROM movie_table")
+        fun getAll(): List<Movie>
 
-        @Query("SELECT * FROM user_table WHERE name LIKE :name")
-        fun findByName(name: String): User
+        @Query("SELECT * FROM movie_table WHERE name LIKE :name")
+        fun findByName(name: String): Movie
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
-        fun insert(vararg user: User)
+        fun insert(vararg movie: Movie)
 
         @Delete
-        fun delete(user: User)
+        fun delete(movie: Movie)
 
         @Update
-        fun updateUser(vararg user: User)
+        fun updateUser(vararg movie: Movie)
     }
 }
