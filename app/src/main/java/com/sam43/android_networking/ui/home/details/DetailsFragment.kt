@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.sam43.android_networking.R
 import com.sam43.android_networking.models.MovieDetails
+import com.sam43.android_networking.room.User
+import com.sam43.android_networking.utils.insert
 import com.sam43.android_networking.utils.loadImage
 import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
@@ -42,6 +44,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun updateUI(it: MovieDetails?) {
+        setButtonClick(it)
         root.tvTitle.text = it?.respTitle
         //activity?.actionBar?.title = it?.respTitle
         val genres: ArrayList<String> = ArrayList()
@@ -58,5 +61,17 @@ class DetailsFragment : Fragment() {
             placeHolder = 0,
             errorHolder = R.drawable.ic_placeholder
         )
+    }
+
+    private fun setButtonClick(it: MovieDetails?) {
+        val movie = User(
+            id = it?.respId!!,
+            name = it.respTitle,
+            info = it.respTagline,
+            image = it.respPosterPath
+        )
+        root.btn_add.setOnClickListener {
+            activity?.insert(movie)
+        }
     }
 }
