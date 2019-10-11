@@ -32,5 +32,17 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        /**
+         * // Shared viewmodel experiment here...
+         *
+         * if (lettersViewModel.hasFullProfile()) {
+        toSend()
+        findNavController().popBackStack(R.id.inboxFragment, false)  //1
+        findNavController().navigate(R.id.sentFragment)  //2
+        } else {
+        findNavController().navigate(R.id.editProfileFragment)  //3
+        }
+         * */
     }
 }
