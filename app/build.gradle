@@ -35,7 +35,7 @@ android {
 
     kotlinOptions.jvmTarget = '1.8'
 }
-
+// tmdb_api_key = "bb7a325ffdc0bedd77bb61bb55b203dd" // add this to local.properties
 dependencies {
     def retrofit_version = '2.6.2'
     def kotlinCoroutineVersion = "1.0.1"
