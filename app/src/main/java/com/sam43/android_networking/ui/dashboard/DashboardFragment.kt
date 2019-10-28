@@ -11,21 +11,32 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.sam43.android_networking.App
 import com.sam43.android_networking.R
 import com.sam43.android_networking.room.AppDataBase
 import com.sam43.android_networking.room.Movie
 import com.sam43.android_networking.utils.RecyclerAdapterUtil
 import com.sam43.android_networking.utils.loadCircularImage
+import com.sam43.android_networking.workmanager.BackgroundWorker
+import com.sam43.android_networking.workmanager.DaggerWorkerComponent
+import com.sam43.android_networking.workmanager.Manager
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import org.jetbrains.anko.support.v4.toast
+import javax.inject.Inject
 
 class DashboardFragment : Fragment() {
+
+    @Inject
+    lateinit var workManagerInstance: Manager
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var db: AppDataBase
     private lateinit var root: View
 
     override fun onAttach(context: Context) {
+        DaggerWorkerComponent.create().push(this)
         db = AppDataBase.invoke(context)
         super.onAttach(context)
     }
@@ -38,8 +49,23 @@ class DashboardFragment : Fragment() {
         dashboardViewModel =
             ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        initWorker(workManagerInstance.instance())
         initVM()
         return root
+    }
+
+    private fun initWorker(workManagerInstance: WorkManager) {
+        val bgWorkRequest = OneTimeWorkRequestBuilder<BackgroundWorker>()
+            .build()
+        workManagerInstance.enqueue(bgWorkRequest)
+        App.applicationContext()
+        // delay(3000)
+        workManagerInstance.getWorkInfoByIdLiveData(bgWorkRequest.id)
+            .observe(viewLifecycleOwner, Observer {
+                toast("State: ${it.state}")
+                if (it?.state.toString().equals("SUCCEEDED", ignoreCase = true))
+                    workManagerInstance.cancelWorkById(bgWorkRequest.id)
+            })
     }
 
     private fun initVM() {

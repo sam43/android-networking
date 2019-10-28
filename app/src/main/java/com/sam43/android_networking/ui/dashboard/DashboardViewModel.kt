@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sam43.android_networking.room.Movie
 import com.sam43.android_networking.utils.ViewModelFactory
-import com.sam43.android_networking.utils.getAllUser
+import com.sam43.android_networking.utils.getAllFavorites
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -20,7 +20,7 @@ class DashboardViewModel : ViewModelFactory() {
 
     fun fetchAddedMovies(context: Context) {
         scope.launch {
-            val popularMovies = context.getAllUser()
+            val popularMovies = context.getAllFavorites()
             addedMovieList.postValue(popularMovies)
         }
     }

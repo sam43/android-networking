@@ -45,6 +45,7 @@ dependencies {
     def archLifecycleVersion = '2.2.0-alpha05'
     def coreTestingVersion = "2.1.0-rc01"
     def fragment_version = "1.1.0"
+    def work_version = "2.2.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -94,6 +95,9 @@ dependencies {
     //Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
+
+    // Workmanager for Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
     // Room components
     implementation "androidx.room:room-runtime:$roomVersion"

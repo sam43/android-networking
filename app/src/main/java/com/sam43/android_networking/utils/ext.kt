@@ -86,16 +86,16 @@ fun formatTimerMillisecond(millisUntilFinished: Long): String {
     )
 }
 
-fun Context.getAllUser(): List<Movie?> {
+fun Context.getAllFavorites(): List<Movie?> {
     val db = AppDataBase.invoke(this)
     val movieList: ArrayList<Movie?> = ArrayList()
     //var data: List<Movie?> = listOf()
-    GlobalScope.launch {
+    //GlobalScope.launch {
         val data = db.userDao().getAll()
         movieList.addAll(data)
         data.forEach {
             Log.d("DB_movie", "val: ${it.name} and id: ${it.id}")
         }
-    }
+    //}
     return movieList
 }
