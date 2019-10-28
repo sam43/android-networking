@@ -7,8 +7,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.sam43.android_networking.dagger_test.Car
+import com.sam43.android_networking.dagger_test.DaggerCarComponents
+import org.jetbrains.anko.toast
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var car: Car
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.nav_host_fragment).navigateUp()
@@ -17,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupNavController()
+        //var components: CarComponents =
+        DaggerCarComponents.create().inject(this)
+        toast(car.drive())
     }
 
     private fun setupNavController() {
@@ -45,4 +55,5 @@ class MainActivity : AppCompatActivity() {
         }
          * */
     }
+
 }

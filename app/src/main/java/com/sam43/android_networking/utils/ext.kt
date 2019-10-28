@@ -11,6 +11,7 @@ import com.sam43.android_networking.room.AppDataBase
 import com.sam43.android_networking.room.Movie
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 private const val baseUrl = "https://image.tmdb.org/t/p/w500_and_h282_face/"
 
@@ -71,6 +72,18 @@ fun Context.filterUserbyName(userName: String) {
     GlobalScope.launch {
         db.userDao().findByName(userName)
     }
+}
+
+fun formatTimerMillisecond(millisUntilFinished: Long): String {
+    return String.format(
+        "%02d:%02d",
+        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+            TimeUnit.MILLISECONDS.toHours(millisUntilFinished)
+        ),
+        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
+        )
+    )
 }
 
 fun Context.getAllUser(): List<Movie?> {

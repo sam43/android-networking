@@ -16,7 +16,7 @@
     </fragment>
     <navigation
         android:id="@+id/dashboard_navigation"
-        app:startDestination="@+id/navigation_home">
+        app:startDestination="@id/navigation_home">
 
         <fragment
             android:id="@+id/navigation_home"

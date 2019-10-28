@@ -1,22 +1,24 @@
 package com.sam43.android_networking.ui.notifications
 
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.sam43.android_networking.R
-import com.sam43.android_networking.utils.CustomUnderlineSpan
+import com.sam43.android_networking.utils.formatTimerMillisecond
+import kotlinx.android.synthetic.main.fragment_notifications.view.*
+import org.jetbrains.anko.support.v4.toast
 
 class NotificationsFragment : Fragment() {
 
+    private lateinit var root: View
     private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var timeOutRemoveTimer: CountDownTimer
+    private var TOTAL_TIME = 120 * 1000L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,24 +27,37 @@ class NotificationsFragment : Fragment() {
     ): View? {
         notificationsViewModel =
             ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
+        root = inflater.inflate(R.layout.fragment_notifications, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
-        val spannable: SpannableString? =
-            SpannableString("kjadfsfnalskjdfnkja askjdfnkasjdfasjkdfn \n asdfndjlfnasdflkansdflknasdffansdjfn ansdkjfnaskfnsdfnaskdfdansjdfnasdfkjadsf")
-        notificationsViewModel.text.observe(this, Observer {
-            /*val spannableString = SpannableString(it)
-            val dottedUnderlineSpan = CustomUnderlineSpan(Color.RED, 2, 5)
-            spannableString.setSpan(dottedUnderlineSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)*/
-            //spannable = SpannableString(it)
-            //textView.text = it
-        })
 
-        spannable?.setSpan(
-            CustomUnderlineSpan(Color.RED, 25, 60),
-            0, spannable.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE
-        )
-
-        textView.text = spannable
+        //textView.text = car.drive()
+        setProgress()
         return root
+    }
+
+    private fun setProgress() {
+        val startingProgress = TOTAL_TIME - (30 * 1000L)
+        root.circle_progress.progress = startingProgress.toFloat()
+        timeOutRemoveTimer = object : CountDownTimer(startingProgress, 1) {
+            override fun onFinish() {
+                root.circle_progress.progress = 1f
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                root.time.text = formatTimerMillisecond(millisUntilFinished)
+                root.circle_progress.progress =
+                    (TOTAL_TIME - millisUntilFinished).toFloat() / TOTAL_TIME
+            }
+        }
+        timeOutRemoveTimer.start()
+    }
+
+    private fun findOutTimeLeft(): Long {
+        //if (arguments != null) {
+        val expiredAtMills = System.currentTimeMillis().plus(30 * 1000L)
+        val timeLeft = expiredAtMills.minus(System.currentTimeMillis())
+        toast("left time: ${timeLeft.div(1000)}")
+        //}
+        return timeLeft
     }
 }
