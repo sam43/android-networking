@@ -1,6 +1,5 @@
 package com.sam43.android_networking
 
-import androidx.recyclerview.widget.RecyclerView
 import com.android21buttons.fragmenttestrule.FragmentTestRule
 import com.sam43.android_networking.ui.home.HomeFragment
 import org.junit.*
@@ -37,14 +36,19 @@ class HomeFragmentTest {
         // check if the onclick is working or not
     }
 
+    @Test
+    fun testFragmentViews() {
+
+    }
+
     @After
     @Throws(Exception::class)
     fun tearDown() {
     }
 
-    private fun getListItemCount(): Int? {
+    /*private fun getListItemCount(): Int? {
         val recyclerView =
             fragmentTestRule.fragment.activity?.findViewById<RecyclerView>(R.id.rv_popular_movies)
         return recyclerView?.adapter?.itemCount
-    }
+    }*/
 }
