@@ -1,3 +1,9 @@
+/*
+ * Project : android-networking
+ * Developed by Saadat Sayem on 10/29/19 11:27 AM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 9/27/19 11:52 PM
+ */
 package com.sam43.android_networking.utils
 
 import android.content.Context
@@ -29,7 +35,7 @@ open class RecyclerAdapterUtil<T>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.bindData(position)
+        holder.bindData(position)
     }
 
     /**
@@ -70,7 +76,7 @@ open class RecyclerAdapterUtil<T>(
     }
 
     fun addViewsList(viewsList: List<Int>) {
-        mViewsList = viewsList;
+        mViewsList = viewsList
     }
 
     override fun getItemCount(): Int = itemList.size

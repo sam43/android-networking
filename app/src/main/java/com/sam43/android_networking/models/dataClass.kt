@@ -1,3 +1,9 @@
+/*
+ * Project : android-networking
+ * Developed by Saadat Sayem on 10/29/19 11:27 AM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 9/28/19 3:59 PM
+ */
 package com.sam43.android_networking.models
 import com.google.gson.annotations.SerializedName
 

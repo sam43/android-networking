@@ -1,3 +1,9 @@
+/*
+ * Project : android-networking
+ * Developed by Saadat Sayem on 10/29/19 11:27 AM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 10/29/19 2:57 AM
+ */
 package com.sam43.android_networking
 
 import android.os.Bundle
@@ -6,7 +12,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.WorkManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sam43.android_networking.dagger_test.Car
 import com.sam43.android_networking.dagger_test.DaggerCarComponents
@@ -18,11 +23,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var car: Car
 
-
-    //private lateinit var workerInstance: WorkManager
-
-    lateinit var workManagerInstance: WorkManager
-
     override fun onSupportNavigateUp() =
         findNavController(R.id.nav_host_fragment).navigateUp()
 
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupNavController()
-        //var components: CarComponents =
         DaggerCarComponents.create().inject(this)
         toast(car.drive())
     }

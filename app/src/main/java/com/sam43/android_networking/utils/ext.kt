@@ -1,3 +1,9 @@
+/*
+ * Project : android-networking
+ * Developed by Saadat Sayem on 10/29/19 11:27 AM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 10/29/19 3:33 AM
+ */
 package com.sam43.android_networking.utils
 
 import android.content.Context
@@ -91,11 +97,11 @@ fun Context.getAllFavorites(): List<Movie?> {
     val movieList: ArrayList<Movie?> = ArrayList()
     //var data: List<Movie?> = listOf()
     //GlobalScope.launch {
-        val data = db.userDao().getAll()
-        movieList.addAll(data)
-        data.forEach {
-            Log.d("DB_movie", "val: ${it.name} and id: ${it.id}")
-        }
+    val data = db.userDao().getAll()
+    movieList.addAll(data)
+    data.forEach {
+        Log.d("DB_movie", "val: ${it.name} and id: ${it.id}")
+    }
     //}
     return movieList
 }

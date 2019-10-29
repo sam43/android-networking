@@ -1,3 +1,9 @@
+/*
+ * Project : android-networking
+ * Developed by Saadat Sayem on 10/29/19 11:27 AM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 9/28/19 5:14 PM
+ */
 package com.sam43.android_networking.ui.home.details
 
 import androidx.lifecycle.MutableLiveData
