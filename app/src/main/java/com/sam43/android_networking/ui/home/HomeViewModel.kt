@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import com.sam43.android_networking.models.MovieItem
 import com.sam43.android_networking.services.ApiFactory
 import com.sam43.android_networking.utils.ViewModelFactory
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -17,8 +18,8 @@ class HomeViewModel : ViewModelFactory() {
     private val repository : MovieListRepo = MovieListRepo(ApiFactory.tmdbApi)
     val popularMoviesLiveData = MutableLiveData<MutableList<MovieItem?>>()
 
-    fun fetchMovies(){
-        scope.launch {
+    fun fetchMovies() {
+        scope.launch(IO) {
             val popularMovies = repository.getPopularMovies()
             popularMoviesLiveData.postValue(popularMovies)
         }

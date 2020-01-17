@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.hbb20.CountryCodePicker
 import com.sam43.android_networking.R
 import com.sam43.android_networking.utils.formatTimerMillisecond
 import kotlinx.android.synthetic.main.fragment_notifications.view.*
@@ -37,7 +38,11 @@ class NotificationsFragment : Fragment() {
         val textView: TextView = root.findViewById(R.id.text_notifications)
 
         //textView.text = car.drive()
-        setProgress()
+        //setProgress()
+        //ccp.setDefaultCountryUsingNameCode("JP")
+        //ccp.defaultCountryCodeWithPlus
+        val ccp = root.country_code_picker
+        countryPicker(ccp)
         return root
     }
 
@@ -66,4 +71,13 @@ class NotificationsFragment : Fragment() {
         //}
         return timeLeft
     }
+
+    private fun countryPicker(ccp: CountryCodePicker) {
+        val countryCode = ccp.selectedCountryCode
+        val countryName = ccp.selectedCountryName
+        ccp.setOnCountryChangeListener {
+            toast("Selected country: $countryName and code: $countryCode")
+        }
+    }
+
 }
