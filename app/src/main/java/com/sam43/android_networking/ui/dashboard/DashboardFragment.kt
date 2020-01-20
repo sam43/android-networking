@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.sam43.android_networking.App
 import com.sam43.android_networking.R
 import com.sam43.android_networking.room.AppDataBase
 import com.sam43.android_networking.room.Movie
@@ -65,8 +64,6 @@ class DashboardFragment : Fragment() {
         val bgWorkRequest = OneTimeWorkRequestBuilder<BackgroundWorker>()
             .build()
         workManagerInstance.enqueue(bgWorkRequest)
-        App.applicationContext()
-        // delay(3000)
         workManagerInstance.getWorkInfoByIdLiveData(bgWorkRequest.id)
             .observe(viewLifecycleOwner, Observer {
                 toast("State: ${it.state}")
