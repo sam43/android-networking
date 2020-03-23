@@ -75,9 +75,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
 
-    // Progressbar
-    implementation 'com.github.JesusM:HoloCircleSeekBar:v2.2.2'
-
 
     // anko and material
     implementation 'org.jetbrains.anko:anko:0.10.8'
@@ -105,6 +102,9 @@ dependencies {
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+    
+    //Permissions
+    implementation 'com.github.florent37:runtime-permission-kotlin:1.1.0'
 
     // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
