@@ -11,6 +11,9 @@ interface Daos {
         @Query("SELECT * FROM movie_table WHERE name LIKE :name")
         fun findByName(name: String): Movie
 
+        @Query("SELECT * FROM movie_table WHERE id LIKE :id")
+        fun findById(id: Int): Movie
+
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         fun insert(vararg movie: Movie)
 

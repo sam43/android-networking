@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
 data class Movie(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-
     @ColumnInfo(name = "image") val image: String?,
     @ColumnInfo(name = "info") val info: String?,
     @ColumnInfo(name = "name") val name: String?

@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class DashboardViewModel : ViewModelFactory() {
 
-
     val addedMovieList = MutableLiveData<List<Movie?>>()
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

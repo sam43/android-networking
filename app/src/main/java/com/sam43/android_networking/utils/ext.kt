@@ -9,6 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.sam43.android_networking.room.AppDataBase
 import com.sam43.android_networking.room.Movie
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -98,4 +99,14 @@ fun Context.getAllUser(): List<Movie?> {
         }
     }
     return movieList
+}
+
+fun Context.isAlreadyFavorite(movieID: Int): Movie? {
+    val db = AppDataBase.invoke(this)
+    var data: Movie? = null
+    GlobalScope.launch {
+        data = db.userDao().findById(movieID)
+        Log.d("isAlreadyFavorite", "data: $data")
+    }
+    return data
 }
