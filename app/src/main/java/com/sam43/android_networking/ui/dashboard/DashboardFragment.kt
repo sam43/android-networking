@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sam43.android_networking.R
@@ -36,15 +37,15 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+            ViewModelProvider(this).get(DashboardViewModel::class.java)
         root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         initVM()
         return root
     }
 
     private fun initVM() {
-        dashboardViewModel.fetchAddedMovies(activity!!)
-        dashboardViewModel.addedMovieList.observe(this, Observer {
+        dashboardViewModel.fetchAddedMovies(requireActivity())
+        dashboardViewModel.addedMovieList.observe(viewLifecycleOwner, Observer {
             //textView.text = it
             if (it.isNotEmpty()) updateUI(it) else toast("list is empty")
             dashboardViewModel.cancelAllRequests()
@@ -58,7 +59,7 @@ class DashboardFragment : Fragment() {
             R.id.movie_details
         )
         list?.toList()?.let {
-            RecyclerAdapterUtil.Builder(context!!, it, R.layout.item_movie_list)
+            RecyclerAdapterUtil.Builder(requireContext(), it, R.layout.item_movie_list)
                 .viewsList(viewList)
                 .bindView { _, item, _, innerViews ->
                     val movieTitle = innerViews[R.id.movie_title] as TextView
